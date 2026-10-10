@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>امتحان اللغة العربية - الصف الأول الإعدادي</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+  }
+
+  body {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at top left, #1a0b2e 0%, #0f0c29 40%, #050510 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ===== Animated Aurora Background ===== */
+  .aurora {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    filter: blur(80px);
+    opacity: 0.5;
+  }
+  .aurora div {
+    position: absolute;
+    border-radius: 50%;
+    animation: auroraMove 20s ease-in-out infinite;
+  }
+  .aurora .a1 { width: 500px; height: 500px; background: #FFD700; top: -100px; left: -100px; animation-delay: 0s; }
+  .aurora .a2 { width: 400px; height: 400px; background: #FF6B6B; bottom: -100px; right: -100px; animation-delay: -5s; }
+  .aurora .a3 { width: 350px; height: 350px; background: #4ECDC4; top: 50%; left: 50%; animation-delay: -10s; }
+  .aurora .a4 { width: 300px; height: 300px; background: #A855F7; top: 20%; right: 10%; animation-delay: -15s; }
+  @keyframes auroraMove {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(80px, -60px) scale(1.2); }
+    50% { transform: translate(-60px, 80px) scale(0.9); }
+    75% { transform: translate(60px, 60px) scale(1.1); }
+  }
+
+  /* ===== Floating Stars ===== */
+  .stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+  }
+
+  .container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 880px;
+    background: rgba(20, 15, 40, 0.75);
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    border: 1.5px solid rgba(255, 215, 0, 0.35);
+    border-radius: 30px;
+    padding: 40px 35px;
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.6),
+      0 0 60px rgba(255, 215, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    animation: containerIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes containerIn {
+    from { opacity: 0; transform: translateY(40px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ===== Header ===== */
+  h1 {
+    text-align: center;
+    font-size: 2.3rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    background-size: 200% auto;
+    animation: shine 3s linear infinite;
+    letter-spacing: -0.5px;
+  }
+  @keyframes shine {
+    to { background-position: 200% center; }
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #b8b5d1;
+    font-size: 1.05rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+  }
+
+  /* ===== Info Bar ===== */
+  .info-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.05));
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 18px;
+    padding: 14px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.08);
+  }
+  .info-bar span {
+    color: #FFD700;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+  }
+  .score-display {
+    color: #4ade80 !important;
+    text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+  }
+
+  /* ===== Progress Bar ===== */
+  .progress-container {
+    width: 100%;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #FFD700, #FFA500, #FF6B6B, #A855F7);
+    background-size: 200% 100%;
+    border-radius: 12px;
+    transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 0%;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    animation: gradientShift 3s ease infinite;
+  }
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* ===== Question Box ===== */
+  .question-box {
+    animation: questionSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes questionSlide {
+    from { opacity: 0; transform: translateX(60px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .question-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #FFD700, #FF8C00);
+    color: #1a0b2e;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    font-weight: 900;
+    font-size: 1.4rem;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.45), inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+    transform: rotate(-3deg);
+    transition: transform 0.3s ease;
+  }
+  .question-number:hover {
+    transform: rotate(0deg) scale(1.05);
+  }
+
+  .question-text {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.9;
+    margin-bottom: 28px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== Options ===== */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .option-btn {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    border: 2px solid rgba(255, 215, 0, 0.2);
+    color: #e2e8f0;
+    padding: 16px 22px;
+    border-radius: 16px;
+    font-size: 1.08rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-align: right;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+  .option-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+    transition: right 0.6s ease;
+  }
+  .option-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 18px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 215, 0, 0.4);
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+  }
+  .option-btn:hover::before {
+    right: 100%;
+  }
+  .option-btn:hover {
+    border-color: #FFD700;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
+    transform: translateX(-6px);
+    box-shadow: 0 8px 30px rgba(255, 215, 0, 0.25), 0 0 0 1px rgba(255, 215, 0, 0.3);
+    color: #fff;
+  }
+  .option-btn:hover::after {
+    background: #FFD700;
+    box-shadow: 0 0 12px #FFD700;
+    transform: translateY(-50%) scale(1.5);
+  }
+
+  .option-btn.correct {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.35), rgba(34, 197, 94, 0.2));
+    border-color: #4ade80;
+    color: #86efac;
+    animation: correctPulse 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 30px rgba(74, 222, 128, 0.4), inset 0 0 20px rgba(74, 222, 128, 0.1);
+  }
+  .option-btn.correct::after {
+    content: '✓';
+    background: transparent;
+    color: #4ade80;
+    font-weight: 900;
+    font-size: 1.2rem;
+    box-shadow: none;
+    width: auto;
+    height: auto;
+    transform: translateY(-50%);
+  }
+
+  .option-btn.wrong {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.35), rgba(220, 38, 38, 0.2));
+    border-color: #ef4444;
+    color: #fca5a5;
+    animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.3);
+  }
+  .option-btn.wrong::after {
+    content: '✗';
+    background: transparent;
+    color: #ef4444;
+    font-weight: 900;
+    font-size: 1.2rem;
+    box-shadow: none;
+    width: auto;
+    height: auto;
+    transform: translateY(-50%);
+  }
+
+  .option-btn.disabled {
+    pointer-events: none;
+    opacity: 0.75;
+  }
+
+  @keyframes correctPulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.04); }
+    100% { transform: scale(1); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+  }
+
+  /* ===== Explanation ===== */
+  .explanation {
+    margin-top: 22px;
+    padding: 18px 22px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 165, 0, 0.05));
+    border-right: 4px solid #FFD700;
+    border-radius: 14px;
+    color: #FFEAA7;
+    font-size: 1.02rem;
+    line-height: 1.8;
+    display: none;
+    animation: explIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.1);
+  }
+  .explanation.show { display: block; }
+  @keyframes explIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== Next Button ===== */
+  .next-btn {
+    display: none;
+    margin: 25px auto 0;
+    padding: 15px 55px;
+    background: linear-gradient(135deg, #FFD700, #FFA500, #FF8C00);
+    background-size: 200% auto;
+    color: #1a0b2e;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.18rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5), inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+  }
+  .next-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s ease;
+  }
+  .next-btn:hover::before {
+    left: 100%;
+  }
+  .next-btn:hover {
+    transform: translateY(-4px) scale(1.06);
+    box-shadow: 0 15px 45px rgba(255, 215, 0, 0.7), inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+    background-position: right center;
+  }
+  .next-btn:active {
+    transform: translateY(-1px) scale(1.02);
+  }
+  .next-btn.show { display: block; animation: btnIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes btnIn {
+    from { opacity: 0; transform: scale(0.8) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* ===== Start Screen ===== */
+  .start-screen {
+    text-align: center;
+    padding: 25px 10px;
+  }
+  .start-screen .icon {
+    font-size: 5.5rem;
+    margin-bottom: 18px;
+    animation: bounce 2.2s ease-in-out infinite;
+    filter: drop-shadow(0 10px 30px rgba(255, 215, 0, 0.4));
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+  }
+  .start-screen h2 {
+    font-size: 1.9rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .start-screen p {
+    color: #c4c0d8;
+    font-size: 1.1rem;
+    line-height: 2;
+    margin-bottom: 28px;
+    font-weight: 600;
+  }
+
+  .features {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  .feature-item {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.05));
+    padding: 18px 28px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  .feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+    border-color: #FFD700;
+  }
+  .feature-item .num {
+    color: #FFD700;
+    font-weight: 900;
+    font-size: 1.6rem;
+    display: block;
+    margin-bottom: 5px;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+  }
+
+  .start-btn {
+    padding: 18px 65px;
+    background: linear-gradient(135deg, #FFD700, #FFA500, #FF8C00);
+    background-size: 200% auto;
+    color: #1a0b2e;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.35rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5), inset 0 -4px 0 rgba(0, 0, 0, 0.15);
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+  }
+  .start-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transition: left 0.7s ease;
+  }
+  .start-btn:hover::before {
+    left: 100%;
+  }
+  .start-btn:hover {
+    transform: translateY(-5px) scale(1.07);
+    box-shadow: 0 20px 50px rgba(255, 215, 0, 0.7), inset 0 -4px 0 rgba(0, 0, 0, 0.15);
+    background-position: right center;
+  }
+  .start-btn:active {
+    transform: translateY(-2px) scale(1.03);
+  }
+
+  /* ===== Results Screen ===== */
+  .results-screen {
+    text-align: center;
+    padding: 20px 10px;
+    animation: resultsIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes resultsIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .results-screen .trophy {
+    font-size: 6.5rem;
+    margin-bottom: 15px;
+    animation: trophyBounce 2s ease-in-out infinite;
+    filter: drop-shadow(0 15px 40px rgba(255, 215, 0, 0.5));
+  }
+  @keyframes trophyBounce {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+  .results-screen h2 {
+    font-size: 2.3rem;
+    margin-bottom: 12px;
+    font-weight: 900;
+  }
+  .results-screen .score-big {
+    font-size: 4rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #FFD700, #FFA500, #FF8C00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 18px 0;
+    text-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+    letter-spacing: 2px;
+  }
+  .results-screen .message {
+    color: #d1cce6;
+    font-size: 1.15rem;
+    line-height: 2;
+    margin-bottom: 28px;
+    font-weight: 600;
+  }
+
+  .restart-btn {
+    padding: 16px 55px;
+    background: linear-gradient(135deg, #FFD700, #FFA500, #FF8C00);
+    background-size: 200% auto;
+    color: #1a0b2e;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5), inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+  }
+  .restart-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s ease;
+  }
+  .restart-btn:hover::before {
+    left: 100%;
+  }
+  .restart-btn:hover {
+    transform: translateY(-4px) scale(1.06);
+    box-shadow: 0 15px 45px rgba(255, 215, 0, 0.7), inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+    background-position: right center;
+  }
+
+  .pass { color: #4ade80; text-shadow: 0 0 20px rgba(74, 222, 128, 0.4); }
+  .fail { color: #f87171; text-shadow: 0 0 20px rgba(248, 113, 113, 0.4); }
+
+  /* ===== Confetti & Celebration ===== */
+  .confetti {
+    position: fixed;
+    width: 14px;
+    height: 14px;
+    top: -20px;
+    z-index: 9999;
+    animation: confettiFall 3s linear forwards;
+    border-radius: 2px;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  .float-emoji {
+    position: fixed;
+    font-size: 3.5rem;
+    z-index: 9998;
+    animation: floatCelebrate 2.8s ease-out forwards;
+    pointer-events: none;
+    filter: drop-shadow(0 5px 15px rgba(255, 215, 0, 0.5));
+  }
+  @keyframes floatCelebrate {
+    0% { transform: translateY(0) scale(0.3) rotate(0deg); opacity: 0; }
+    20% { opacity: 1; transform: translateY(-30px) scale(1.3) rotate(15deg); }
+    50% { transform: translateY(-120px) scale(1.1) rotate(-10deg); }
+    100% { transform: translateY(-300px) scale(0.7) rotate(20deg); opacity: 0; }
+  }
+
+  /* ===== Toast ===== */
+  .toast {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.95), rgba(34, 197, 94, 0.95));
+    color: #fff;
+    padding: 14px 35px;
+    border-radius: 50px;
+    font-weight: 900;
+    font-size: 1.05rem;
+    z-index: 99999;
+    box-shadow: 0 15px 40px rgba(74, 222, 128, 0.5);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 650px) {
+    .container { padding: 25px 18px; border-radius: 22px; }
+    h1 { font-size: 1.6rem; }
+    .question-text { font-size: 1.12rem; }
+    .option-btn { font-size: 0.98rem; padding: 13px 16px; }
+    .option-btn::after { right: 12px; }
+    .info-bar { padding: 10px 16px; font-size: 0.9rem; }
+    .feature-item { padding: 14px 20px; }
+    .start-btn { padding: 15px 45px; font-size: 1.15rem; }
+    .results-screen .score-big { font-size: 3rem; }
+    .results-screen h2 { font-size: 1.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Aurora Background -->
+<div class="aurora">
+  <div class="a1"></div>
+  <div class="a2"></div>
+  <div class="a3"></div>
+  <div class="a4"></div>
+</div>
+
+<!-- Stars -->
+<div class="stars" id="stars"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span>✅</span>
+  <span id="toastText">إجابة صحيحة!</span>
+</div>
+
+<div class="container" id="app">
+
+  <!-- ===== START SCREEN ===== -->
+  <div class="start-screen" id="startScreen">
+    <div class="icon">📚</div>
+    <h1>امتحان اللغة العربية</h1>
+    <p class="subtitle">الصف الأول الإعدادي — الفصل الدراسي الأول</p>
+
+    <div class="features">
+      <div class="feature-item"><span class="num">25</span> سؤال</div>
+      <div class="feature-item"><span class="num">17</span> درجة النجاح</div>
+      <div class="feature-item"><span class="num">1</span> درجة لكل سؤال</div>
+    </div>
+
+    <div style="background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(168,85,247,0.05)); border: 1px solid rgba(255,215,0,0.2); border-radius: 16px; padding: 18px 22px; margin-bottom: 28px; text-align: right;">
+      <p style="color: #FFD700; font-weight: 800; margin-bottom: 10px; font-size: 1.05rem;">📋 الدروس المشمولة:</p>
+      <p style="color: #c4c0d8; font-size: 0.98rem; line-height: 2; margin: 0;">
+        🔬 الدكتور أحمد زويل<br>
+        🎖️ أسطورة مصرية (البطل أحمد منسي)<br>
+        💎 رسالة إلى المرأة المصرية<br>
+        📝 الفعل اللازم والمتعدي<br>
+        📝 الفعل المجرد والمزيد
+      </p>
+    </div>
+
+    <button class="start-btn" onclick="startQuiz()">🚀 ابدأ الامتحان</button>
+  </div>
+
+  <!-- ===== QUIZ SCREEN ===== -->
+  <div id="quizScreen" style="display:none;">
+    <div class="info-bar">
+      <span>📖 السؤال <span id="currentQ">1</span> / 25</span>
+      <span class="score-display">⭐ النقاط: <span id="scoreDisplay">0</span></span>
+    </div>
+
+    <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="question-box" id="questionBox">
+      <div class="question-number" id="qNumber">1</div>
+      <div class="question-text" id="qText"></div>
+      <div class="options" id="optionsContainer"></div>
+      <div class="explanation" id="explanation"></div>
+      <button class="next-btn" id="nextBtn" onclick="nextQuestion()">التالي ➡️</button>
+    </div>
+  </div>
+
+  <!-- ===== RESULTS SCREEN ===== -->
+  <div class="results-screen" id="resultsScreen" style="display:none;">
+    <div class="trophy" id="trophyIcon">🏆</div>
+    <h2 id="resultTitle"></h2>
+    <div class="score-big" id="finalScore"></div>
+    <p class="message" id="resultMessage"></p>
+    <button class="restart-btn" onclick="restartQuiz()">🔄 إعادة الامتحان</button>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   بنك الأسئلة — 25 سؤالاً
+   ============================================================ */
+const questions = [
+
+  // ============ الدكتور أحمد زويل (6 أسئلة) ============
+  {
+    type: 'mcq',
+    text: 'من هو العالم المصري الذي حصل على جائزة نوبل في الكيمياء عام 1999م؟',
+    options: ['الدكتور أحمد زويل', 'الدكتور فاروق الباز', 'الدكتور مصطفى مشرفة', 'الدكتور مجدي يعقوب'],
+    correct: 0,
+    explanation: 'الدكتور أحمد زويل هو العالم المصري الذي حصل على جائزة نوبل في الكيمياء عام 1999م لاختراعه نظام الفيمتوثانية.'
+  },
+  {
+    type: 'mcq',
+    text: 'ما اسم النظام الذي اخترعه الدكتور أحمد زويل لتصوير التفاعلات الكيميائية بسرعة فائقة؟',
+    options: ['نظام النانوثانية', 'نظام الفيمتوثانية', 'نظام الميكروثانية', 'نظام البيكوثانية'],
+    correct: 1,
+    explanation: 'اخترع الدكتور أحمد زويل نظام الفيمتوثانية الذي يمكنه تصوير حركة الذرات والجزيئات أثناء التفاعلات الكيميائية.'
+  },
+  {
+    type: 'mcq',
+    text: 'على هيئة أي رمز من رموز الحضارة المصرية القديمة صُممت ميدالية جائزة نوبل التي تسلمها الدكتور زويل؟',
+    options: ['الإله حورس', 'الملكة نفرتيتي', 'الإلهة إيزيس', 'الإله أوزوريس'],
+    correct: 2,
+    explanation: 'صُممت الميدالية على هيئة الإلهة إيزيس رمز الأمومة عند قدماء المصريين، والتي تكشف عن وجهها سيدة تقف بجانبها.'
+  },
+  {
+    type: 'mcq',
+    text: 'بم بدأ الدكتور أحمد زويل كلمته عند تسلمه جائزة نوبل؟',
+    options: ['بالتأمل في قصة شخصية', 'بذكر إنجازاته العلمية', 'بشكر الحكومة المصرية', 'بالحديث عن طفولته'],
+    correct: 0,
+    explanation: 'بدأ الدكتور زويل كلمته بالتأمل في قصة شخصية في نطاق رحلته عبر الزمن، مما جعلها مؤثرة وعميقة.'
+  },
+  {
+    type: 'mcq',
+    text: 'ما الأمل الذي أعرب عنه الدكتور زويل في نهاية كلمته؟',
+    options: [
+      'أن يحصل على جائزة أخرى',
+      'أن تُلهم هذه الجائزة الأجيال الشابة وتحفزهم على طلب العلم',
+      'أن يعود إلى مصر',
+      'أن يبني متحفًا علميًا'
+    ],
+    correct: 1,
+    explanation: 'أعرب الدكتور زويل عن أمله في أن تُلهم هذه الجائزة الأولى الأجيال الشابة وتحفزهم على السعي لطلب العلم والإسهام في خدمة العلوم.'
+  },
+  {
+    type: 'mcq',
+    text: 'ما القيمة التي تجلت في قول الدكتور زويل: "لقد بدأت حياتي وتعليمي في نفس أرض إيزيس"؟',
+    options: [
+      'الاعتزاز بالهوية الوطنية والانتماء لمصر',
+      'الرغبة في السفر',
+      'الخوف من المستقبل',
+      'البحث عن الشهرة'
+    ],
+    correct: 0,
+    explanation: 'يدل هذا القول على الاعتزاز بالهوية الوطنية والانتماء لمصر، وربطه بين إنجازه العلمي وجذوره المصرية العريقة.'
+  },
+
+  // ============ أسطورة مصرية: البطل أحمد منسي (6 أسئلة) ============
+  {
+    type: 'mcq',
+    text: 'في أي قرية وُلد الشهيد البطل أحمد منسي؟',
+    options: ['قرية بني قريش بمركز منيا القمح', 'قرية نجرين بالغربية', 'قرية البرث برفح', 'قرية الشيخ زويد'],
+    correct: 0,
+    explanation: 'وُلد العقيد أركان حرب أحمد صابر منسي في قرية بني قريش بمركز منيا القمح بمحافظة الشرقية.'
+  },
+  {
+    type: 'mcq',
+    text: 'ما التاريخ الذي استُشهد فيه البطل أحمد منسي؟',
+    options: ['7 يوليو 2017م', '9 مارس 1969م', '6 أكتوبر 1973م', '25 يناير 2011م'],
+    correct: 0,
+    explanation: 'استُشهد البطل أحمد منسي في 7 يوليو 2017م أثناء تصديه لهجوم إرهابي على كمين البرث في رفح.'
+  },
+  {
+    type: 'mcq',
+    text: 'لماذا صعد البطل أحمد منسي إلى سطح المبنى أثناء الهجوم الإرهابي؟',
+    options: [
+      'للهروب من النيران',
+      'ليشغل انتباه الإرهابيين ويمنح جنوده فرصة لنقل المصابين',
+      'للاتصال بالقوات',
+      'لانتظار التعزيزات'
+    ],
+    correct: 1,
+    explanation: 'صعد منسي إلى سطح المبنى في لحظة بطولة استثنائية ليشغل انتباه الإرهابيين ويمنح جنوده فرصة لنقل المصابين والشهداء بعيدًا عن النيران.'
+  },
+  {
+    type: 'mcq',
+    text: 'ما القيمة التي تجلت في قول منسي: "نحن هنا من أجل أن نحيي هذه الأرض، وإذا استشهدنا نموت ونحن رافعون رؤوسنا"؟',
+    options: ['الخوف من الموت', 'العزة والكرامة والتضحية', 'البحث عن الشهرة', 'الرغبة في الترقية'],
+    correct: 1,
+    explanation: 'يدل هذا القول على العزة والكرامة والتضحية من أجل الوطن، وأن الاستشهاد شرف ورفعة.'
+  },
+  {
+    type: 'mcq',
+    text: 'ماذا كانت نتيجة عملية التطهير التي قام بها منسي في منطقة الشيخ زويد؟',
+    options: [
+      'القضاء على عدد من القيادات الإرهابية وضبط كميات كبيرة من الأسلحة',
+      'إصابة منسي بجروح خطيرة',
+      'انسحاب القوات المصرية',
+      'تدمير المدرعة'
+    ],
+    correct: 0,
+    explanation: 'أسفرت عملية التطهير في الشيخ زويد عن القضاء على عدد من القيادات الإرهابية، وضبط كميات كبيرة من الأسلحة والمتفجرات.'
+  },
+  {
+    type: 'mcq',
+    text: 'ما دلالة قول الكاتب: "بدمه ختم بوابة سيناء، كأنها قفل من نار لا يُفتح إلا لأبناء الوطن"؟',
+    options: [
+      'ضعف الجيش المصري',
+      'قدسية أرض سيناء وأنها محمية بتضحيات الأبطال',
+      'رغبة العدو في السيطرة',
+      'كثرة الحروب'
+    ],
+    correct: 1,
+    explanation: 'يدل هذا التعبير على قدسية أرض سيناء وأنها محمية بتضحيات الأبطال ودمائهم، وأنها جزء غالٍ من الوطن لا يُمس.'
+  },
+
+  // ============ رسالة إلى المرأة المصرية (5 أسئلة) ============
+  {
+    type: 'mcq',
+    text: 'من مؤلفة نص "رسالة إلى المرأة المصرية"؟',
+    options: ['الدكتورة نعمات أحمد فؤاد', 'الدكتورة سمية موسى', 'الشاعرة جليلة رضا', 'الأديبة عائشة عبد الرحمن'],
+    correct: 0,
+    explanation: 'مؤلفة النص هي الدكتورة نعمات أحمد فؤاد، وكتبته كرسالة اعتراز وإدلال للمرأة المصرية.'
+  },
+  {
+    type: 'mcq',
+    text: 'بم شبهت الكاتبة المرأة المصرية في نقائها؟',
+    options: ['نهر النيل', 'المعدن الكريم', 'الأرض الطيبة', 'رمال الصحراء'],
+    correct: 1,
+    explanation: 'شبهت الكاتبة المرأة المصرية في نقائها بالمعدن الكريم فقالت: "فظلت كما هي سليمة نقية كالمعدن الكريم".'
+  },
+  {
+    type: 'mcq',
+    text: 'ما معنى قول الكاتبة: "عرّقت الأرض منها اليدين"؟',
+    options: [
+      'كثرة الأمطار والري',
+      'الكفاح والعمل الشاق',
+      'تلوث اليدين بالتراب',
+      'تنسيق الحدائق'
+    ],
+    correct: 1,
+    explanation: 'التعبير "عرّقت الأرض منها اليدين" يرمز إلى الكفاح والعمل الشاق الذي تقوم به المرأة المصرية في زراعة الأرض.'
+  },
+  {
+    type: 'mcq',
+    text: 'لماذا اعتبرت الكاتبة المرأة المصرية "إلهامًا للفن ووحيًا للشاعر" رغم معاناتها؟',
+    options: [
+      'لأنها جميلة الشكل',
+      'لأن الجمال الحقيقي نابع من الصمود والصدق الإنساني',
+      'لأنها غنية',
+      'لأنها تعيش في المدينة'
+    ],
+    correct: 1,
+    explanation: 'اعتبرها الكاتبة إلهامًا للفن لأن الجمال الحقيقي في نظرها نابع من الصمود والصدق الإنساني، لا من الترف أو الكمال الظاهري.'
+  },
+  {
+    type: 'mcq',
+    text: 'ما القيمة المستفادة من قول الكاتبة: "وما انتظرت جزاءً ولا نالته"؟',
+    options: ['اليأس من تقدير الآخرين', 'التضحية دون مقابل', 'الاستغناء عن الناس', 'القناعة بالقليل'],
+    correct: 1,
+    explanation: 'تدل هذه العبارة على التضحية دون مقابل، وأن المرأة المصرية تعطي الكثير دون انتظار جزاء أو شكر.'
+  },
+
+  // ============ الفعل اللازم والمتعدي (4 أسئلة) ============
+  {
+    type: 'mcq',
+    text: 'ما هو الفعل اللازم؟',
+    options: [
+      'ما يكتفي بفاعله ولا يحتاج إلى مفعول به',
+      'ما يحتاج إلى مفعول به',
+      'ما يحتاج إلى مفعولين',
+      'ما يحتاج إلى ثلاثة مفاعيل'
+    ],
+    correct: 0,
+    explanation: 'الفعل اللازم هو ما يكتفي بفاعله ولا يحتاج إلى مفعول به، مثل: جلس، ذهب، نام.'
+  },
+  {
+    type: 'mcq',
+    text: 'أي من الأفعال التالية فعل متعدٍ؟',
+    options: ['جلس', 'نام', 'كتب', 'ذهب'],
+    correct: 2,
+    explanation: 'الفعل "كتب" فعل متعدٍ لأنه يحتاج إلى مفعول به، فنقول: كتب الطالب الدرس. أما جلس ونام وذهب فهي أفعال لازمة.'
+  },
+  {
+    type: 'mcq',
+    text: 'ما نوع الفعل "سافر" من حيث اللزوم والتعدي؟',
+    options: ['لازم', 'متعدٍ', 'متعدٍ لمفعولين', 'متعدٍ لثلاثة'],
+    correct: 0,
+    explanation: 'الفعل "سافر" فعل لازم لأنه يكتفي بفاعله، فنقول: سافر محمد. ولا يحتاج إلى مفعول به.'
+  },
+  {
+    type: 'mcq',
+    text: 'أي الجمل التالية تحتوي على فعل متعدٍ؟',
+    options: [
+      'جلس الطالب على الكرسي',
+      'شرب الطفل اللبن',
+      'نام الطفل مبكرًا',
+      'ذهب الأب إلى العمل'
+    ],
+    correct: 1,
+    explanation: 'الفعل "شرب" فعل متعدٍ لأنه يحتاج إلى مفعول به وهو "اللبن". أما جلس ونام وذهب فأفعال لازمة.'
+  },
+
+  // ============ الفعل المجرد والمزيد (4 أسئلة) ============
+  {
+    type: 'mcq',
+    text: 'ما هو الفعل المجرد؟',
+    options: [
+      'ما كانت جميع حروفه أصلية',
+      'ما زيد على حروفه الأصلية حرف أو أكثر',
+      'ما كان معتلًا',
+      'ما كان صحيحًا'
+    ],
+    correct: 0,
+    explanation: 'الفعل المجرد هو ما كانت جميع حروفه أصلية، مثل: كتب، جلس، علم.'
+  },
+  {
+    type: 'mcq',
+    text: 'الفعل "استخرج" ما نوعه من حيث التجريد والزيادة؟',
+    options: [
+      'مجرد',
+      'مزيد بحرف',
+      'مزيد بحرفين',
+      'مزيد بثلاثة أحرف'
+    ],
+    correct: 3,
+    explanation: 'الفعل "استخرج" مزيد بثلاثة أحرف (الهمزة والسين والتاء) على الفعل المجرد "خرج".'
+  },
+  {
+    type: 'mcq',
+    text: 'أي من الأفعال التالية فعل مجرد؟',
+    options: ['أكرم', 'علّم', 'فهم', 'استغفر'],
+    correct: 2,
+    explanation: 'الفعل "فهم" فعل مجرد لأن جميع حروفه أصلية. أما أكرم فعل مزيد بحرف، وعلّم مزيد بحرف، واستغفر مزيد بثلاثة أحرف.'
+  },
+  {
+    type: 'mcq',
+    text: 'الفعل "انطلق" مزيد بحرفين. ما هما الحرفان الزائدان؟',
+    options: ['الهمزة والنون', 'الهمزة والتاء', 'النون واللام', 'التاء والقاف'],
+    correct: 0,
+    explanation: 'الفعل "انطلق" مزيد بحرفين هما: الهمزة والنون، وأصله "طلق".'
+  }
+];
+
+/* ============================================================
+   منطق الامتحان
+   ============================================================ */
+let currentIndex = 0;
+let score = 0;
+let answered = false;
+
+const startScreen = document.getElementById('startScreen');
+const quizScreen = document.getElementById('quizScreen');
+const resultsScreen = document.getElementById('resultsScreen');
+const qNumber = document.getElementById('qNumber');
+const qText = document.getElementById('qText');
+const optionsContainer = document.getElementById('optionsContainer');
+const explanation = document.getElementById('explanation');
+const nextBtn = document.getElementById('nextBtn');
+const progressBar = document.getElementById('progressBar');
+const currentQ = document.getElementById('currentQ');
+const scoreDisplay = document.getElementById('scoreDisplay');
+const toast = document.getElementById('toast');
+const toastText = document.getElementById('toastText');
+
+/* ===== إنشاء النجوم ===== */
+function createStars() {
+  const starsContainer = document.getElementById('stars');
+  const count = 90;
+  for (let i = 0; i < count; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 3 + 1;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.animationDuration = (2 + Math.random() * 3) + 's';
+    star.style.opacity = 0.3 + Math.random() * 0.7;
+    starsContainer.appendChild(star);
+  }
+}
+createStars();
+
+/* ===== إظهار Toast ===== */
+function showToast(message, isCorrect = true) {
+  toastText.textContent = message;
+  toast.style.background = isCorrect
+    ? 'linear-gradient(135deg, rgba(74, 222, 128, 0.95), rgba(34, 197, 94, 0.95))'
+    : 'linear-gradient(135deg, rgba(239, 68, 68, 0.95), rgba(220, 38, 38, 0.95))';
+  toast.style.boxShadow = isCorrect
+    ? '0 15px 40px rgba(74, 222, 128, 0.5)'
+    : '0 15px 40px rgba(239, 68, 68, 0.5)';
+  toast.querySelector('span:first-child').textContent = isCorrect ? '✅' : '❌';
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 1800);
+}
+
+/* ===== بدء الامتحان ===== */
+function startQuiz() {
+  startScreen.style.display = 'none';
+  quizScreen.style.display = 'block';
+  currentIndex = 0;
+  score = 0;
+  scoreDisplay.textContent = '0';
+  loadQuestion();
+}
+
+/* ===== تحميل السؤال ===== */
+function loadQuestion() {
+  answered = false;
+  const q = questions[currentIndex];
+  qNumber.textContent = currentIndex + 1;
+  currentQ.textContent = currentIndex + 1;
+  qText.textContent = q.text;
+  explanation.classList.remove('show');
+  nextBtn.classList.remove('show');
+  optionsContainer.innerHTML = '';
+
+  // تحريك السؤال
+  const questionBox = document.getElementById('questionBox');
+  questionBox.style.animation = 'none';
+  void questionBox.offsetWidth;
+  questionBox.style.animation = 'questionSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+
+  q.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt;
+    btn.onclick = () => selectAnswer(idx, btn);
+    optionsContainer.appendChild(btn);
+  });
+
+  // تحديث شريط التقدم
+  progressBar.style.width = ((currentIndex) / questions.length) * 100 + '%';
+}
+
+/* ===== اختيار الإجابة ===== */
+function selectAnswer(idx, btn) {
+  if (answered) return;
+  answered = true;
+
+  const q = questions[currentIndex];
+  const allBtns = document.querySelectorAll('.option-btn');
+
+  allBtns.forEach((b, i) => {
+    b.classList.add('disabled');
+    if (i === q.correct) {
+      b.classList.add('correct');
+    }
+  });
+
+  if (idx === q.correct) {
+    score++;
+    scoreDisplay.textContent = score;
+    showToast('إجابة صحيحة! أحسنت 🎉', true);
+    scoreDisplay.style.transform = 'scale(1.4)';
+    scoreDisplay.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    setTimeout(() => {
+      scoreDisplay.style.transform = 'scale(1)';
+    }, 300);
+  } else {
+    btn.classList.add('wrong');
+    showToast('إجابة خاطئة، حاول في السؤال التالي 💪', false);
+  }
+
+  explanation.textContent = '💡 ' + q.explanation;
+  explanation.classList.add('show');
+
+  nextBtn.classList.add('show');
+  if (currentIndex === questions.length - 1) {
+    nextBtn.textContent = '🏁 عرض النتيجة';
+  } else {
+    nextBtn.textContent = 'التالي ➡️';
+  }
+}
+
+/* ===== السؤال التالي ===== */
+function nextQuestion() {
+  currentIndex++;
+  if (currentIndex < questions.length) {
+    loadQuestion();
+    document.querySelector('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    showResults();
+  }
+}
+
+/* ===== عرض النتائج ===== */
+function showResults() {
+  quizScreen.style.display = 'none';
+  resultsScreen.style.display = 'block';
+
+  const finalScoreEl = document.getElementById('finalScore');
+  const resultTitle = document.getElementById('resultTitle');
+  const resultMessage = document.getElementById('resultMessage');
+  const trophyIcon = document.getElementById('trophyIcon');
+
+  finalScoreEl.textContent = score + ' / ' + questions.length;
+
+  if (score >= 17) {
+    trophyIcon.textContent = '🏆';
+    resultTitle.textContent = '🎉 مبروك! لقد نجحت بتفوق!';
+    resultTitle.className = 'pass';
+
+    let customMessage = '';
+    if (score === 25) {
+      customMessage = '🌟 علامة كاملة! أنت عبقري حقيقي! 🌟';
+    } else if (score >= 23) {
+      customMessage = '🌟 ممتاز جدًا! أنت من المتفوقين! 🌟';
+    } else if (score >= 20) {
+      customMessage = '✨ رائع! أداء عالي جدًا! ✨';
+    } else {
+      customMessage = '👏 أحسنت! لقد تجاوزت درجة النجاح! 👏';
+    }
+
+    resultMessage.innerHTML = `
+      <span style="font-size:1.6rem; color:#FFD700; font-weight:900; display:block; margin-bottom:10px;">${customMessage}</span>
+      لقد حصلت على <strong style="color:#4ade80; font-size:1.5rem;">${score}</strong> من 25 درجة<br>
+      <span style="color:#FFD700; font-weight:700;">درجة النجاح: 17</span><br><br>
+      <span style="font-size:1.15rem;">أنت طالب مجتهد ومتفوق، استمر في هذا التفوق! 💪✨</span><br><br>
+      <span style="font-size:2.5rem;">🎊🎈🎉🎊🎈🎉🎊</span>
+    `;
+
+    launchConfetti();
+    launchFloatingEmojis();
+  } else {
+    trophyIcon.textContent = '📖';
+    resultTitle.textContent = '😔 لم تحقق درجة النجاح';
+    resultTitle.className = 'fail';
+
+    resultMessage.innerHTML = `
+      لقد حصلت على <strong style="color:#f87171; font-size:1.5rem;">${score}</strong> من 25 درجة<br>
+      <span style="color:#FFD700; font-weight:700;">درجة النجاح: 17</span><br><br>
+      <span style="color:#FFD700;">لا تحزن، راجع الدروس وحاول مرة أخرى وستنجح بإذن الله! 💪</span><br><br>
+      <span style="font-size:1.8rem;">📚✨📚</span>
+    `;
+  }
+}
+
+/* ===== الاحتفال بالقصاصات ===== */
+function launchConfetti() {
+  const colors = ['#FFD700', '#FFA500', '#FF6347', '#4ade80', '#60a5fa', '#f472b6', '#a78bfa', '#34d399', '#fbbf24'];
+  for (let i = 0; i < 130; i++) {
+    setTimeout(() => {
+      const conf = document.createElement('div');
+      conf.className = 'confetti';
+      conf.style.left = Math.random() * 100 + '%';
+      conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+      conf.style.width = (8 + Math.random() * 12) + 'px';
+      conf.style.height = conf.style.width;
+      conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      conf.style.animationDuration = (2.5 + Math.random() * 2.5) + 's';
+      conf.style.opacity = 0.7 + Math.random() * 0.3;
+      document.body.appendChild(conf);
+      setTimeout(() => conf.remove(), 5500);
+    }, i * 35);
+  }
+}
+
+/* ===== الاحتفال بالرموز الطائرة ===== */
+function launchFloatingEmojis() {
+  const emojis = ['🌟', '🎉', '🏆', '💪', '✨', '🎊', '🥇', '👏', '🌈', '💫', '⭐', '🎯'];
+  for (let i = 0; i < 22; i++) {
+    setTimeout(() => {
+      const emoji = document.createElement('div');
+      emoji.className = 'float-emoji';
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.style.left = (5 + Math.random() * 90) + '%';
+      emoji.style.bottom = '5%';
+      emoji.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 5500);
+    }, i * 170);
+  }
+}
+
+/* ===== إعادة الامتحان ===== */
+function restartQuiz() {
+  resultsScreen.style.display = 'none';
+  startScreen.style.display = 'block';
+  currentIndex = 0;
+  score = 0;
+  scoreDisplay.textContent = '0';
+  progressBar.style.width = '0%';
+  document.querySelectorAll('.confetti, .float-emoji').forEach(el => el.remove());
+}
+</script>
+
+</body>
+</html>
